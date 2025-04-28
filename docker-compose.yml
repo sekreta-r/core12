@@ -44,6 +44,10 @@ services:
       FLYWAY_BASELINE: true
       TOMCAT_THREADS: ${TOMCAT_THREADS}
       CORE_SERVICE_PORT: ${SERVER_PORT}
+      KAFKA_HOSTS: ${KAFKA_HOSTS:-hl22.zil:9094,hl23.zil:9094}
+      KAFKA_GROUP_ID: ${KAFKA_GROUP_ID:-esecretareva-consumer-group}
+      KAFKA_TOPIC: ${KAFKA_TOPIC:-var15}
+      KAFKA_CONCURRENCY: ${KAFKA_CONCURRENCY:-2}
 
   additional-app:
     image: sekretaria/joinlab9
@@ -62,10 +66,7 @@ services:
       CORE_SERVICE_PORT: ${CORE_SERVICE_PORT}
       SERVER_PORT: ${SERVER_PORT}
       TOMCAT_THREADS: ${TOMCAT_THREADS}
-      KAFKA_HOSTS: ${KAFKA_HOSTS:-hl22.zil:9094,hl23.zil:9094}
-      KAFKA_GROUP_ID: ${KAFKA_GROUP_ID:-esecretareva-consumer-group}
-      KAFKA_TOPIC: ${KAFKA_TOPIC:-var15}
-      KAFKA_CONCURRENCY: ${KAFKA_CONCURRENCY:-2}
+
 
 networks:
   app-network:
