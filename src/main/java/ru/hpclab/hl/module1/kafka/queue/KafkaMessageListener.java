@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import ru.hpclab.hl.module1.model.KafkaOperationMessage;
+import java.util.List;
+
 
 
 @Component
@@ -22,14 +24,19 @@ public class KafkaMessageListener {
     @KafkaListener(
             topics = "${kafka.topic:var15}",
             groupId = "${kafka.groupId:esecretareva-consumer-group}",
-            concurrency = "${kafka.concurrency:2}"
+            concurrency = "${kafka.concurrency:2}",
+            containerFactory = "kafkaListenerContainerFactory"
     )
-    public void handleMessage(String messageJson) {
-        try {
-            KafkaOperationMessage message = objectMapper.readValue(messageJson, KafkaOperationMessage.class);
-            kafkaMessageDispatcher.dispatch(message);
-        } catch (Exception e) {
-            log.error("Error while parsing or dispatching Kafka message: {}", messageJson, e);
+    public void handleMessage(List<String> messageJsonList) {
+        for (String messageJson : messageJsonList) {
+            try {
+                KafkaOperationMessage message = objectMapper.readValue(messageJson, KafkaOperationMessage.class);
+                kafkaMessageDispatcher.dispatch(message);
+            } catch (Exception e) {
+                log.error("Error while parsing or dispatching Kafka message: {}", messageJson, e);
+            }
         }
     }
+
+
 }
