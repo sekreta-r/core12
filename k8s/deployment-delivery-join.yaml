@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delivery-join-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delivery-join-service
+  template:
+    metadata:
+      labels:
+        app: delivery-join-service
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: delivery-join-service
+          image: sekretaria/joinlab9:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8082
+          envFrom:
+            - configMapRef:
+                name: delivery-config
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1024Mi"
+            requests:
+              cpu: "1"
+              memory: "1024Mi"
