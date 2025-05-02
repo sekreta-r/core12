@@ -19,7 +19,7 @@ services:
       start_period: 10s
 
   core-service:
-    image: sekretaria/corelab12
+    image: sekretaria/corelab17
     container_name: core-service
     restart: always
     depends_on:
@@ -51,7 +51,7 @@ services:
 
 
   additional-app:
-    image: sekretaria/joinlab9
+    image: sekretaria/corelab17v1
     container_name: additional-app
     restart: always
     depends_on:
