@@ -23,6 +23,20 @@ spec:
           envFrom:
             - configMapRef:
                 name: delivery-config
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 2
           resources:
             limits:
               cpu: "1"
