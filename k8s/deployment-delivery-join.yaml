@@ -16,7 +16,7 @@ spec:
         - name: regcred
       containers:
         - name: delivery-join-service
-          image: sekretaria/joinlab9:latest
+          image: sekretaria/corelab17v1:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8082
@@ -42,5 +42,5 @@ spec:
               cpu: "1"
               memory: "1024Mi"
             requests:
-              cpu: "1"
-              memory: "1024Mi"
+              cpu: "500m"
+              memory: "512Mi"
